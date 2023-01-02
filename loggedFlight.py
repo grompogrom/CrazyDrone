@@ -7,6 +7,7 @@ from cflib.crazyflie.syncCrazyflie import SyncCrazyflie
 
 from cflib.crazyflie.log import LogConfig
 from cflib.crazyflie.syncLogger import SyncLogger
+from cflib.positioning.motion_commander import MotionCommander
 
 # URI to the Crazyflie to connect to
 uri = 'radio://0/80/2M/E7E7E7E7E7'
@@ -41,14 +42,13 @@ if __name__ == '__main__':
     # The fetch-as argument can be set to FP16 to save space in the log packet
     lg_stab.add_variable('pm.vbat', 'FP16')
 
+    def simple_connect(scf):
+        print("Yeah, I'm connected! :D")
+        motion_controller = MotionCommander(scf)
+        motion_controller.take_off()
+        motion_controller.up(1)
+        time.sleep(1)
     with SyncCrazyflie(uri, cf=Crazyflie(rw_cache='./cache')) as scf:
 
         simple_log_async(scf, lg_stab)
-
-
-        def simple_connect(scf):
-            print("Yeah, I'm connected! :D")
-            motion_controller = MotionCommander(scf)
-            motion_controller.take_off()
-            motion_controller.up(1)
-            time.sleep(1)
+        simple_connect(scf)
