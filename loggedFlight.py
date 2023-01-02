@@ -44,3 +44,11 @@ if __name__ == '__main__':
     with SyncCrazyflie(uri, cf=Crazyflie(rw_cache='./cache')) as scf:
 
         simple_log_async(scf, lg_stab)
+
+
+        def simple_connect(scf):
+            print("Yeah, I'm connected! :D")
+            motion_controller = MotionCommander(scf)
+            motion_controller.take_off()
+            motion_controller.up(1)
+            time.sleep(1)
