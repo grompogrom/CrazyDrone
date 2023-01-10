@@ -12,7 +12,7 @@ def unit_controller():
     uris = {uri_1, uri_2}
 
     swarm = Swarm(uris)
-    swarm.open_links(uris[0], uris[1])
+    swarm.open_links()
     commander = MotionCommander(swarm)
     commander.take_off()
     commander.up(1)
@@ -21,6 +21,7 @@ def unit_controller():
     swarm.sequential(lambda commander: commander.up(0.3))
     time.sleep(2)
     commander.land(0.2)
+
 
 
 if __name__ == '__main__':
