@@ -10,6 +10,8 @@ from cflib.crazyflie.syncLogger import SyncLogger
 from cflib.positioning.motion_commander import MotionCommander
 
 # URI to the Crazyflie to connect to
+from cflib.positioning.motion_commander import MotionCommander
+
 uri = 'radio://0/80/2M/E7E7E7E7E7'
 
 # Only output errors from the logging framework
@@ -23,8 +25,6 @@ def simple_log_async(scf, logconf):
     cf.log.add_config(logconf)
     logconf.data_received_cb.add_callback(log_stab_callback)
     logconf.start()
-    time.sleep(5)
-    logconf.stop()
 
 
 
@@ -44,9 +44,9 @@ if __name__ == '__main__':
 
     def simple_connect(scf):
         print("Yeah, I'm connected! :D")
-        motion_controller = MotionCommander(scf)
+        motion_controller = MotionCommander(scf,default_height=1)
         motion_controller.take_off()
-        motion_controller.up(1)
+        motion_controller.up(10)
         time.sleep(1)
     with SyncCrazyflie(uri, cf=Crazyflie(rw_cache='./cache')) as scf:
 
