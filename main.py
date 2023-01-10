@@ -17,12 +17,6 @@ from CrazyLogger import CrazyLogger, create_lg_stab
 uri = uri_helper.uri_from_env(default='radio://0/80/2M/E7E7E7E7E7')
 
 
-def flight_square(dist, motion_controller: MotionCommander):
-    motion_controller.forward(dist, velocity=1)
-    motion_controller.left(dist, velocity=1)
-    motion_controller.back(dist, velocity=1)
-    motion_controller.right(dist, velocity=1)
-    return
 
 
 def simple_connect(scf):
@@ -31,10 +25,6 @@ def simple_connect(scf):
     motion_controller.take_off()
     motion_controller.up(1)
     time.sleep(1)
-    # flight_square(1, motion_controller)
-    motion_controller.forward(3, velocity=0.3)
-    time.sleep(1)
-    motion_controller.land(0.2)
 
 
 
