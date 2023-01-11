@@ -4,59 +4,75 @@ import cflib.crtp
 from cflib.crazyflie import HighLevelCommander
 from cflib.crazyflie.swarm import CachedCfFactory
 from cflib.crazyflie.swarm import Swarm
+from cflib.positioning.position_hl_commander import PositionHlCommander
+
+from CrazyFlieWithPosController import PosControllerCfFactory
 
 
 def activate_led_bit_mask(scf):
     scf.cf.param.set_value('led.bitmask', 255)
 
-
 def deactivate_led_bit_mask(scf):
     scf.cf.param.set_value('led.bitmask', 0)
 
-
 def light_check(scf):
-    # activate_led_bit_mask(scf)
+    activate_led_bit_mask(scf)
     time.sleep(2)
-    # deactivate_led_bit_mask(scf)
+    deactivate_led_bit_mask(scf)
     time.sleep(2)
-
 
 def take_off(scf):
-    commander = scf.cf.high_level_commander
-
+    print('take off')
+    commander= scf.cf.high_level_commander
     commander.takeoff(1.0, 2.0)
     time.sleep(3)
 
 
 def land(scf):
-    commander: HighLevelCommander = scf.cf.high_level_commander
+    print('land')
+    commander: HighLevelCommander= scf.cf.high_level_commander
 
-    commander.land(0.0, 2.0)
-    time.sleep(2)
-
+    commander.land(absolute_height_m=0, duration_s=4)
+    time.sleep(5)
     commander.stop()
-
 
 def hover_sequence(scf):
     take_off(scf)
+    time.sleep(3)
+    change_position(scf)
+    time.sleep(3)
+    rotate(scf)
+    time.sleep(3)
     land(scf)
+
+def change_position(scf):
+    commander: HighLevelCommander= scf.cf.high_level_commander
+    commander.go_to(3,0,1,0,3)
+    time.sleep(3)
+
+def rotate(scf):
+    commander: HighLevelCommander= scf.cf.high_level_commander
+    commander.go_to(0,0,0,180,2,True)
 
 
 uris = {
-    'radio://0/20/2M/E7E7E7E701',
-    # 'radio://0/20/2M/E7E7E7E702',
-    # 'radio://0/20/2M/E7E7E7E703',
+    'radio://0/110/2M/E7E7E7E7E3',
+    'radio://0/110/2M/E7E7E7E7E9',
+    'radio://0/80/2M/E7E7E7E7E7',
+    'radio://0/80/2M/E7E7E7E7E8'
+
     # 'radio://0/20/2M/E7E7E7E704',
     # Add more URIs if you want more copters in the swarm
 }
-
 if __name__ == '__main__':
     cflib.crtp.init_drivers()
     factory = CachedCfFactory(rw_cache='./cache')
     with Swarm(uris, factory=factory) as swarm:
         print('Connected to  Crazyflies')
-        swarm.parallel_safe(light_check)
+        # swarm.parallel_safe(light_check)
         swarm.reset_estimators()
+        print('estimators reseted')
 
-        swarm.sequential(hover_sequence)
+        swarm.parallel(hover_sequence)
+
 
