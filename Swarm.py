@@ -8,7 +8,7 @@ from cflib.utils import uri_helper
 
 def unit_controller():
     uri_1 = uri_helper.uri_from_env(default='radio://0/80/2M/E7E7E7E7E7')
-    uri_2 = uri_helper.uri_from_env(default='radio://0/80/2M/E7E7E7E7E7')
+    uri_2 = uri_helper.uri_from_env(default='radio://0/80/2M/E7E7E7E7E9')
     uris = {uri_1, uri_2}
 
     swarm = Swarm(uris)
