@@ -61,7 +61,7 @@ def change_position(scf: SyncCrazyflie, x, y, z):
 def rotate(scf):
     print("rotate")
     commander: HighLevelCommander= scf.cf.high_level_commander
-    commander.go_to(0,0,0,0,6,True)
+    commander.go_to(0, 0, 0, 0, 6, True)
 
 
 URI1 = "radio://0/80/2M/E7E7E7E7E7"
