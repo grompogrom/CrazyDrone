@@ -40,6 +40,10 @@ def land(motion_controller):
     motion_controller.land(0.2)
     time.sleep(1)
 
+def rotate(motion_controller: MotionCommander):
+    motion_controller.turn_right(180)
+    time.sleep(1)
+
 def end_flying(motion_controller):
     global is_flying
     land(motion_controller)
@@ -52,6 +56,7 @@ command_map = {
     "назад" : back,
     "вверх" : up,
     "вниз" : down,
+    "разворот" : rotate,
     "конец" : end_flying
 }
 
@@ -63,7 +68,7 @@ def voice_commander(motion_commander):
 
 
 if __name__ == '__main__':
-    uri = uri_helper.uri_from_env(default='radio://0/80/2M/E7E7E7E7E7')
+    uri = 'radio://0/80/2M/E7E7E7E7E7'
     index = 0
     transcript = ''
     srr = sr.Recognizer()
@@ -79,7 +84,7 @@ if __name__ == '__main__':
         while is_flying:
             with mic as sourse:
                 try:
-                    srr.energy_threshold = 900
+                    srr.energy_threshold = 750
                     srr.adjust_for_ambient_noise(sourse)
                     audio = srr.listen(sourse)
                     transcript = srr.recognize_google(audio, language='ru-RU')

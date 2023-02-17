@@ -14,7 +14,7 @@ from cflib.utils import uri_helper
 
 from CrazyLogger import CrazyLogger, create_lg_stab
 
-uri = uri_helper.uri_from_env(default='radio://0/80/2M/E7E7E7E7E7')
+uri = uri_helper.uri_from_env(default='radio://0/110/2M/E7E7E7E7E9')
 
 
 
@@ -24,7 +24,12 @@ def simple_connect(scf):
     motion_controller = MotionCommander(scf)
     motion_controller.take_off()
     motion_controller.up(1)
+    motion_controller.forward(0.3)
+    motion_controller.turn_right(180)
+    motion_controller.forward(0.3)
+
     time.sleep(1)
+    motion_controller.land(0.2)
 
 
 

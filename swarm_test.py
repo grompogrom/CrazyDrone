@@ -64,7 +64,7 @@ def rotate(scf):
     commander.go_to(0, 0, 0, 0, 6, True)
 
 
-URI1 = "radio://0/80/2M/E7E7E7E7E7"
+URI1 = "radio://0/80/2M/E7E7E7E7E1"
 URI2 = 'radio://0/110/2M/E7E7E7E7E9'
 URI3 = 'radio://0/110/2M/E7E7E7E7E3'
 URI4 = "radio://0/110/2M/E7E7E7E7E5"
@@ -91,6 +91,6 @@ if __name__ == '__main__':
         print('Connected to  Crazyflies')
         swarm.reset_estimators()
         print('estimators reseted')
-        swarm.parallel(hover_sequence, args_dict=params)
+        swarm.parallel_safe(hover_sequence, args_dict=params)
 
 
