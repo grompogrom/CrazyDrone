@@ -1,3 +1,5 @@
+import asyncio
+
 from first_step.SwarmController import SwarmController
 import numpy as np
 import matplotlib.pyplot as plt

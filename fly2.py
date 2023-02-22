@@ -10,7 +10,7 @@ from cflib.crazyflie.syncCrazyflie import SyncCrazyflie
 from cflib.positioning.motion_commander import MotionCommander
 from cflib.utils import uri_helper
 
-URI = uri_helper.uri_from_env(default='radio://0/110/2M/E7E7E7E7E3')
+URI = uri_helper.uri_from_env(default='radio://0/110/2M/E7E7E7E7E9')
 
 DEFAULT_HEIGHT = 0.5
 BOX_LIMIT = 0.5
@@ -92,9 +92,11 @@ if __name__ == '__main__':
                                          cb=param_deck_flow)
         time.sleep(1)
 
-        logconf = LogConfig(name='Position', period_in_ms=10)
-        logconf.add_variable('stateEstimate.x', 'float')
-        logconf.add_variable('stateEstimate.y', 'float')
+        lg_stab = LogConfig(name='locSrc', period_in_ms=1000)
+        lg_stab.add_variable('locSrv.x', 'float')
+        lg_stab.add_variable('locSrv.y', 'float')
+        lg_stab.add_variable('locSrv.z', 'float')
+        logconf = lg_stab
         scf.cf.log.add_config(logconf)
         logconf.data_received_cb.add_callback(log_pos_callback)
 

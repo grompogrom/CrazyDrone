@@ -37,7 +37,7 @@ def take_off(motion_controller):
     time.sleep(1)
 
 def land(motion_controller):
-    motion_controller.land(0.2)
+    motion_controller.final_land(0.2)
     time.sleep(1)
 
 def end_flying(motion_controller):

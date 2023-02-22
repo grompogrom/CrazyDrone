@@ -51,6 +51,11 @@ def hover_sequence(scf, params2, params1, param3, param4):
 
     final_land(scf)
 
+def take_off_land(scf):
+    take_off(scf,2)
+    time.sleep(5)
+    final_land(scf)
+
 
 def change_position(scf: SyncCrazyflie, x, y, z):
     commander: HighLevelCommander= scf.cf.high_level_commander
@@ -64,10 +69,10 @@ def rotate(scf):
     commander.go_to(0, 0, 0, 0, 6, True)
 
 
-URI1 = "radio://0/80/2M/E7E7E7E7E7"
-URI2 = 'radio://0/110/2M/E7E7E7E7E9'
+URI1 = "radio://0/110/2M/E7E7E7E7E2"
+URI2 = 'radio://0/80/2M/1'
 URI3 = 'radio://0/110/2M/E7E7E7E7E3'
-URI4 = "radio://0/110/2M/E7E7E7E7E5"
+URI4 = "radio://0/80/2M/E7E7E7E7E8"
 
 param1 = {'x': 1.64, 'y': 0.23, 'z': 0.5}
 param2 = {'x': 1.63, 'y': 1.83, 'z': 1.2}
@@ -76,7 +81,9 @@ param4 = {'x': 0.93, 'y': 0.93, 'z': 1.2}
 
 uris = {
     URI1,
-    URI2
+    # URI2,
+    URI3,
+    URI4
 }
 
 params = {
@@ -89,8 +96,9 @@ if __name__ == '__main__':
     factory = CachedCfFactory(rw_cache='./cache')
     with Swarm(uris, factory=factory) as swarm:
         print('Connected to  Crazyflies')
-        swarm.reset_estimators()
+        time.sleep(2)
+        # swarm.reset_estimators()
         print('estimators reseted')
-        swarm.parallel(hover_sequence, args_dict=params)
-
+        # swarm.parallel(hover_sequence, args_dict=params)
+        swarm.parallel_safe(take_off_land)
 

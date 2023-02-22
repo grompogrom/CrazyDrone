@@ -32,7 +32,7 @@ class Drone:
         self.commander.land()
 
     def scan_around(self):
-        self.commander.rotate_right(360)
+        self.commander.rotate_right(90)
 
     def pos_data_cb(self, timestamp, data, logconf):
         self.position = [
@@ -72,10 +72,10 @@ class DronesFactory:
 
 
 if __name__ == "__main__":
-    URI1 = "radio://0/80/2M/E7E7E7E7E7"
+    URI1 = "radio://0/120/2M/E7E7E7E7E5"
     drone = Drone(URI1, lambda t, d, l: print(d))
     drone.take_off()
-    drone.commander.rotate_right(90)
+    drone.commander.rotate_right(300)
     time.sleep(2)
     drone.land()
     drone.disconnect()

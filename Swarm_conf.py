@@ -18,4 +18,6 @@ class SwarmConfing:
 if __name__ == '__main__':
     conf = SwarmConfing('a', 'b', 'c')
     conf.add_end_point('a', 1, 1, 1)
+    conf.add_end_point('b', 1, 1, 1)
+
     print(conf.get_params())

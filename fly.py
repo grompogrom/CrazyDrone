@@ -9,9 +9,9 @@ from cflib.crazyflie.syncCrazyflie import SyncCrazyflie
 from cflib.positioning.motion_commander import MotionCommander
 from cflib.utils import uri_helper
 
-URI = uri_helper.uri_from_env(default='radio://0/80/2M/E7E7E7E7E7')
+URI = uri_helper.uri_from_env(default='radio://0/110/2M/E7E7E7E71B')
 
-DEFAULT_HEIGHT = 0.5
+DEFAULT_HEIGHT = 2.0
 
 deck_attached_event = Event()
 
@@ -23,16 +23,12 @@ def take_off_simple(scf):
         mc.stop()
 
 
-def param_deck_flow(name, value_str):
-    ...
 
 if __name__ == '__main__':
     cflib.crtp.init_drivers()
 
     with SyncCrazyflie(URI, cf=Crazyflie(rw_cache='./cache')) as scf:
 
-        scf.cf.param.add_update_callback(group='deck', name='bcFlow2',
-                                         cb=param_deck_flow)
         time.sleep(1)
 
         take_off_simple(scf)

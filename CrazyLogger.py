@@ -37,15 +37,10 @@ def create_lg_stab():
             print(f'{name}: {value:3.3f} ', end='')
         print()
 
-    lg_stab = LogConfig(name='Stabilizer', period_in_ms=100)
-    lg_stab.add_variable('stateEstimate.x', 'float')
-    lg_stab.add_variable('stateEstimate.y', 'float')
-    lg_stab.add_variable('stateEstimate.z', 'float')
-    lg_stab.add_variable('stabilizer.roll', 'float')
-    lg_stab.add_variable('stabilizer.pitch', 'float')
-    lg_stab.add_variable('stabilizer.yaw', 'float')
-    # The fetch-as argument can be set to FP16 to save space in the log packet
-    lg_stab.add_variable('pm.vbat', 'FP16')
+    lg_stab = LogConfig(name='locSrc', period_in_ms=1000)
+    lg_stab.add_variable('locSrv.x', 'float')
+    lg_stab.add_variable('locSrv.y', 'float')
+    lg_stab.add_variable('locSrv.z', 'float')
     # This callback will receive the data
     lg_stab.data_received_cb.add_callback(_stab_log_data)
     # This callback will be called on errors

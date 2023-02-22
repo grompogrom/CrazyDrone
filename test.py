@@ -34,7 +34,7 @@ from cflib.crazyflie import Crazyflie
 from cflib.crazyflie.log import LogConfig
 from cflib.utils import uri_helper
 
-uri = uri_helper.uri_from_env(default='radio://0/80/2M/E7E7E7E7E7')
+uri = uri_helper.uri_from_env(default='radio://0/110/2M/E7E7E7E7E9')
 
 # Only output errors from the logging framework
 logging.basicConfig(level=logging.ERROR)
@@ -72,15 +72,11 @@ class LoggingExample:
         print('Connected to %s' % link_uri)
 
         # The definition of the logconfig can be made before connecting
-        self._lg_stab = LogConfig(name='Stabilizer', period_in_ms=100)
-        self._lg_stab.add_variable('stateEstimate.x', 'float')
-        self._lg_stab.add_variable('stateEstimate.y', 'float')
-        self._lg_stab.add_variable('stateEstimate.z', 'float')
-        self._lg_stab.add_variable('stabilizer.roll', 'float')
-        self._lg_stab.add_variable('stabilizer.pitch', 'float')
-        self._lg_stab.add_variable('stabilizer.yaw', 'float')
-        # The fetch-as argument can be set to FP16 to save space in the log packet
-        self._lg_stab.add_variable('pm.vbat', 'FP16')
+        self._lg_stab = LogConfig(name='locSrv', period_in_ms=100)
+        self.lg_stab = LogConfig(name='locSrc', period_in_ms=1000)
+        self.lg_stab.add_variable('locSrv.x', 'float')
+        self.lg_stab.add_variable('locSrv.y', 'float')
+        self.lg_stab.add_variable('locSrv.z', 'float')
 
         # Adding the configuration cannot be done until a Crazyflie is
         # connected, since we need to check that the variables we
