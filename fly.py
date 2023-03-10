@@ -9,9 +9,9 @@ from cflib.crazyflie.syncCrazyflie import SyncCrazyflie
 from cflib.positioning.motion_commander import MotionCommander
 from cflib.utils import uri_helper
 
-URI = uri_helper.uri_from_env(default='radio://0/110/2M/E7E7E7E71B')
+URI = uri_helper.uri_from_env(default="radio://0/120/2M/E7E7E7E7E5")
 
-DEFAULT_HEIGHT = 2.0
+DEFAULT_HEIGHT = 0.5
 
 deck_attached_event = Event()
 
@@ -19,8 +19,7 @@ logging.basicConfig(level=logging.ERROR)
 
 def take_off_simple(scf):
     with MotionCommander(scf, default_height=DEFAULT_HEIGHT) as mc:
-        time.sleep(3)
-        mc.stop()
+        pass
 
 
 

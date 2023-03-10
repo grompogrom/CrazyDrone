@@ -9,7 +9,7 @@ class CoordsCaster():
 		# assert self.max_y > abs(y)
 		new_x = self.center[0] + x
 		new_y = self.center[1] + y
-		new_z = z
+		new_z = z + 0.5
 		return new_x, new_y, new_z
 
 
